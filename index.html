@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Giải phương trình bậc hai</title>
+  <script>
+    function solveQuadraticEquation(a, b, c) {
+      return new Promise((resolve, reject) => {
+        let delta = b * b - 4 * a * c;
+
+        if (delta < 0) {
+          // Phương trình không có nghiệm thực
+          reject("Phương trình không có nghiệm thực");
+        } else if (delta === 0) {
+          // Phương trình có nghiệm kép
+          let x = -b / (2 * a);
+          resolve([x]);
+        } else {
+          // Phương trình có hai nghiệm phân biệt
+          let x1 = (-b + Math.sqrt(delta)) / (2 * a);
+          let x2 = (-b - Math.sqrt(delta)) / (2 * a);
+          resolve([x1, x2]);
+        }
+      });
+    }
+
+    function solveEquation() {
+      let a = parseFloat(document.getElementById("input-a").value);
+      let b = parseFloat(document.getElementById("input-b").value);
+      let c = parseFloat(document.getElementById("input-c").value);
+
+      solveQuadraticEquation(a, b, c)
+        .then((solutions) => {
+          document.getElementById("result").innerHTML = "Các nghiệm của phương trình là: " + solutions;
+        })
+        .catch((error) => {
+          document.getElementById("result").innerHTML = "Đã xảy ra lỗi: " + error;
+        });
+    }
+  </script>
+</head>
+<body>
+  <h1>Giải phương trình bậc hai</h1>
+  <label for="input-a">Nhập giá trị a:</label>
+  <input type="number" id="input-a"><br>
+  <label for="input-b">Nhập giá trị b:</label>
+  <input type="number" id="input-b"><br>
+  <label for="input-c">Nhập giá trị c:</label>
+  <input type="number" id="input-c"><br>
+  <button onclick="solveEquation()">Giải phương trình</button>
+  <p id="result"></p>
+</body>
+</html>
