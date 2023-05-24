@@ -29,7 +29,7 @@ const formatSolution = (solution) => {
   }
 }
 
-const  solveEquation async = ()=> {
+const  solveEquation = async ()=> {
   let a = parseFloat(document.getElementById("input-a").value);
   let b = parseFloat(document.getElementById("input-b").value);
   let c = parseFloat(document.getElementById("input-c").value);
