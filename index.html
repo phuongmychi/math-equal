@@ -1,7 +1,40 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Giải phương trình bậc hai</title>
+  <title>Solve Quadratic Equation</title>
+  <style>
+    .form-group {
+      margin-bottom: 10px;
+    }
+    @media only screen and (max-width:700px){
+      .container{
+        width:100%;
+        display:block;
+          
+        }
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-group">
+    <label for="input-a">Nhập hệ số a:</label>
+    <input type="number" id="input-a">
+  </div>
+  <div class="form-group">
+    <label for="input-b">Nhập hệ số b:</label>
+    <input type="number" id="input-b">
+  </div>
+  <div class="form-group">
+    <label for="input-c">Nhập hệ số c:</label>
+    <input type="number" id="input-c">
+  </div>
+  <button onclick="solveEquation()">Giải phương trình</button>
+  <div id="result"></div>
+    </div>
+
   <script>
     function solveQuadraticEquation(a, b, c) {
       return new Promise((resolve, reject) => {
@@ -23,6 +56,14 @@
       });
     }
 
+    function formatSolution(solution) {
+      if (typeof solution === 'number') {
+        return solution.toString();
+      } else {
+        return '√' + solution.toString();
+      }
+    }
+
     function solveEquation() {
       let a = parseFloat(document.getElementById("input-a").value);
       let b = parseFloat(document.getElementById("input-b").value);
@@ -30,23 +71,13 @@
 
       solveQuadraticEquation(a, b, c)
         .then((solutions) => {
-          document.getElementById("result").innerHTML = "Các nghiệm của phương trình là: " + solutions;
+          let formattedSolutions = solutions.map((solution) => formatSolution(solution));
+          document.getElementById("result").innerHTML = "Các nghiệm của phương trình là: " + formattedSolutions.join(", ");
         })
         .catch((error) => {
           document.getElementById("result").innerHTML = "Đã xảy ra lỗi: " + error;
         });
     }
   </script>
-</head>
-<body>
-  <h1>Giải phương trình bậc hai</h1>
-  <label for="input-a">Nhập giá trị a:</label>
-  <input type="number" id="input-a"><br>
-  <label for="input-b">Nhập giá trị b:</label>
-  <input type="number" id="input-b"><br>
-  <label for="input-c">Nhập giá trị c:</label>
-  <input type="number" id="input-c"><br>
-  <button onclick="solveEquation()">Giải phương trình</button>
-  <p id="result"></p>
 </body>
 </html>
