@@ -39,9 +39,6 @@ function decimalToFraction(decimal) {
   return numerator + '/' + denominator;
 }
 
-// Sử dụng hàm decimalToFraction để chuyển đổi số thập phân
-let decimalNumber = 3.75;
-let fraction = decimalToFraction(decimalNumber);
 
 
 
@@ -56,14 +53,14 @@ const solveQuadraticEquation = (a, b, c) => {
           // Phương trình có nghiệm kép
           let x = -b / (2 * a);
           let fraction = decimalToFraction(x);
-          resolve([fraction]);
+          resolve([x]);
         } else {
           // Phương trình có hai nghiệm phân biệt
           let x1 = (-b + Math.sqrt(delta)) / (2 * a);
           let x2 = (-b - Math.sqrt(delta)) / (2 * a);
             let fraction1 = decimalToFraction(x1);
               let fraction2 = decimalToFraction(x2);
-          resolve([fraction1, fraction2]);
+          resolve([x1, x2]);
         }
       });
     }
