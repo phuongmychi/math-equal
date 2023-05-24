@@ -50,34 +50,37 @@
         }
       });
     }
+function formatSolution(solution) {
+  if (typeof solution === 'number') {
+    return solution.toString();
+  } else if (Array.isArray(solution)) {
+    let numerator = solution[0];
+    let denominator = solution[1];
+    return numerator + "/" + denominator;
+  } else {
+    return '√' + solution.toString();
+  }
+}
 
-    function formatSolution(solution) {
-      if (typeof solution === 'number') {
-        return solution.toString();
-      } else {
-        return '√' + solution.toString();
-      }
-    }
+async function solveEquation() {
+  let a = parseFloat(document.getElementById("input-a").value);
+  let b = parseFloat(document.getElementById("input-b").value);
+  let c = parseFloat(document.getElementById("input-c").value);
 
-    function solveEquation() {
-      let a = parseFloat(document.getElementById("input-a").value);
-      let b = parseFloat(document.getElementById("input-b").value);
-      let c = parseFloat(document.getElementById("input-c").value);
-      
-   if (isNaN(a) || isNaN(b) || isNaN(c)) {
+  if (isNaN(a) || isNaN(b) || isNaN(c)) {
     document.getElementById("result").innerHTML = "Vui lòng nhập đầy đủ và đúng kiểu số";
     return;
-   }
+  }
 
-      solveQuadraticEquation(a, b, c)
-        .then((solutions) => {
-          let formattedSolutions = solutions.map((solution) => formatSolution(solution));
-          document.getElementById("result").innerHTML = "Các nghiệm của phương trình là: " + formattedSolutions.join(", ");
-        })
-        .catch((error) => {
-          document.getElementById("result").innerHTML = "Đã xảy ra lỗi: " + error;
-        });
-    }
+  try {
+    let solutions = await solveQuadraticEquation(a, b, c);
+    let formattedSolutions = solutions.map((solution) => formatSolution(solution));
+    document.getElementById("result").innerHTML = "Các nghiệm của phương trình là: " + formattedSolutions.join(", ");
+  } catch (error) {
+    document.getElementById("result").innerHTML = "Đã xảy ra lỗi: " + error;
+  }
+}
+    
   </script>
 </body>
 </html>
