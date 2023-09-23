@@ -1,4 +1,51 @@
 
+// Giải phương trình bậc 4 bằng thuật toán Ferrari
+function solveQuartic(a: number, b: number, c: number, d: number, e: number): number[] {
+  let f = ((-3 * Math.pow(b, 2)) / (8 * Math.pow(a, 2))) + ((c) / (a));
+  let g = ((Math.pow(b, 3)) / (8 * Math.pow(a, 3))) - ((b * c) / (2 * Math.pow(a, 2))) + ((d) / (a));
+  let h = ((-3 * Math.pow(b, 4)) / (256 * Math.pow(a, 4))) + ((Math.pow(b, 2) * c) / (16 * Math.pow(a, 3))) - ((b * d) / (4 * Math.pow(a, 2))) + ((e) / (a));
+  
+  let p = (-Math.pow(f, 2)) / (12 * h);
+  let q = (-f * p) / (3 * h);
+  let r = (Math.pow(g, 2)) / (8 * Math.pow(h, 2)) + ((p) / (2 * h)) - ((f) / (3 * h));
+  
+  let y: number;
+  
+  if(Math.pow(q, 3) + Math.pow(r, 2) > 0) {
+    y = Math.cbrt(-r + Math.sqrt(Math.pow(q, 3) + Math.pow(r, 2)));
+    y += Math.cbrt(-r - Math.sqrt(Math.pow(q, 3) + Math.pow(r, 2)));
+    y -= f / (3 * h);
+    
+    return [y];
+    
+  } else if(Math.pow(q, 3) + Math.pow(r, 2) == 0) {
+    let z = (-5 * q) / (6 * r);
+    y = z - f / (3 * h);
+    
+    return [y];
+    
+  } else {
+    let s = Math.sqrt(-(Math.pow(q, 3) + Math.pow(r, 2)));
+    let u = Math.cbrt(s - r);
+    let v = -Math.cbrt(s + r);
+    y = u + v - f / (3 * h);
+    
+    return [y];
+    
+    // Uncomment the following lines to include complex roots
+    //let x1 = u + v - f / (3 * h);
+    //let x2_re = -(u + v) / 2 - f / (3 * h);
+    //let x2_im = (u - v) * Math.sqrt(3) / 2;
+    //let x3_re = -(u + v) / 2 - f / (3 * h);
+    //let x3_im = -(u - v) * Math.sqrt(3) / 2;
+    //return [x1,x2_re+x2_im+'i',x3_re+x3_im+'i'];
+    
+   }
+}
+
+// Sử dụng đoạn code để giải phương trình bậc tư
+let roots: number[] = solveQuartic(1,-10,-24,-26,-9);
+console.log(`Nghiệm của phương trình là ${roots}`);
 
 
 
